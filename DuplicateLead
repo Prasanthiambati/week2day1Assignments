@@ -1,0 +1,116 @@
+package week2.day1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class DuplicateLead {
+
+	public static void main(String[] args) {
+		//Launch URL//
+				WebDriverManager.chromedriver().setup();
+				ChromeDriver driver= new ChromeDriver();
+				driver.get("http:leaftaps.com/opentaps");
+				
+				//Maximise the browser//
+				driver.manage().window().maximize();
+				
+				//FInd Username and enter demosalesmanager//
+				driver.findElement(By.id("username")).sendKeys("demosalesmanager");
+				
+				//Find the password and enter crmsfa//
+				driver.findElement(By.id("password")).sendKeys("crmsfa");
+				
+				//Click login//
+				driver.findElement(By.className("decorativeSubmit")).click();
+				
+				//create logout//
+				WebElement logout = driver.findElement(By.className("decorativeSubmit"));
+				
+				//check for correct login//
+				String attribute = logout.getAttribute("value");
+				System.out.println(attribute);
+				if(attribute.equals(logout));
+				System.out.println("Succesfully logged In");
+				
+				//click CRM/SFA//
+				driver.findElement(By.linkText("CRM/SFA")).click();
+				
+				//click Leads//
+				driver.findElement(By.linkText("Leads")).click();
+				
+				//click create lead//
+				driver.findElement(By.linkText("Create Lead")).click();
+				
+				//Enter CompanyName//
+				driver.findElement(By.id("createLeadForm_companyName")).sendKeys("TestLeaf");
+
+				//Enter FirstName//
+				driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Prasanthi");
+				
+				//Enter LastName//
+				driver.findElement(By.id("createLeadForm_lastName")).sendKeys("Ambati");
+				
+				//Enter FirstName Local//
+				driver.findElement(By.id("createLeadForm_firstNameLocal")).sendKeys("Rosy");
+				
+				//Enter Departmental Name//
+				driver.findElement(By.name("departmentName")).sendKeys("Testers");
+				
+				//Enter Description//
+				driver.findElement(By.name("description")).sendKeys("Learning Selenium");
+				
+				//Enter emailid//
+				driver.findElement(By.id("createLeadForm_primaryEmail")).sendKeys("iamlearningjava@ok.com");
+				
+				//Select State dropdown//
+				WebElement state=driver.findElement(By.id("createLeadForm_generalStateProvinceGeoId"));
+				state.click();
+				Select selectdropDown=new Select(state);
+				selectdropDown.selectByVisibleText("New York");
+				
+				//Click on CreateLead button//
+				driver.findElement(By.name("submitButton")).click();
+				
+				//Get Title of the result page//
+				String title=driver.getTitle();
+				System.out.println(title);
+				if (title.equals("View Lead | opentaps CRM"))
+				{
+					System.out.println("Succesfully Lead Created");
+				}
+				//Click DuplicateLead//
+				driver.findElement(By.className("subMenuButton")).click();
+				
+				//Clear CompanyName created in the Lead//
+				driver.findElement(By.id("createLeadForm_companyName")).clear();
+				
+				//ENter Company Name in the DuplicateLead//
+				driver.findElement(By.id("createLeadForm_companyName")).sendKeys("SelTesters");
+				
+				//Clear FirstName in the Lead//
+				driver.findElement(By.id("createLeadForm_firstName")).clear();
+				
+				//Enter FirstName in the DuplicateLead//
+				driver.findElement(By.id("createLeadForm_firstName")).sendKeys("Apple");
+				
+				//Click on CreateLead button//
+				driver.findElement(By.name("submitButton")).click();
+				
+				//Get Title of the result page//
+				String titlex=driver.getTitle();
+				System.out.println(titlex);
+				if (title.equals("View Lead | opentaps CRM"))
+				{
+					System.out.println("Succesfully DuplicateLead Created");
+				}
+				else
+				{
+					System.out.println("Unsuccessful");
+				}
+				
+				}
+}
